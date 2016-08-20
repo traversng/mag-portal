@@ -1,0 +1,21 @@
+<div class="container">
+	<form class="form-signin" ng-submit="$ctrl.createUserByEmail()">
+		<h2 class="form-signin-heading text-center">Please signup</h2>
+		<label for="inputEmail" class="sr-only">Email address</label>
+		<input ng-model="$ctrl.signupEmail" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input ng-model="$ctrl.signupPassword" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign me up!</button>
+		<hr>
+		<h2 class="text-center">Social Login</h2>
+		<a class="btn btn-block btn-social btn-twitter">
+  		<span class="fa fa-twitter"></span>
+  			Sign in with Twitter
+		</a>
+		<a class="btn btn-block btn-social btn-facebook">
+  		<span class="fa fa-facebook"></span>
+  			Sign in with Facebook
+		</a>
+	</form>
+</div>
+<!-- /container -->
