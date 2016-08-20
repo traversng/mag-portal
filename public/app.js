@@ -1,5 +1,6 @@
 import angular from 'angular';
 import {home} from './components/home/home';
+import {navbar} from './components/navbar/navbar';
 import {login} from './components/login/login';
 import {signup} from './components/signup/signup';
 import {account} from './components/account/account';
@@ -20,6 +21,7 @@ angular.module('app', [
   'firebase',
   'ui.router',
   home.name,
+  navbar.name,
   login.name,
   account.name,
   signup.name
