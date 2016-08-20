@@ -5,6 +5,7 @@ import {navbar} from './components/navbar/navbar';
 import {login} from './components/login/login';
 import {signup} from './components/signup/signup';
 import {account} from './components/account/account';
+import {survey} from './components/survey/survey';
 import 'angular-ui-router';
 import firebase from 'firebase';
 import angularfire from 'angularfire';
@@ -26,7 +27,8 @@ angular.module('app', [
   navbar.name,
   login.name,
   account.name,
-  signup.name
+  signup.name,
+  survey.name
 ])
 
 .run(['$rootScope', '$state', function($rootScope, $state) {
@@ -73,6 +75,19 @@ angular.module('app', [
     views: {
       'account': {
         component: 'account'
+      }
+    }
+  })
+  .state('home.survey', {
+    url: '/survey',
+    resolve: {
+      'currentAuth': ['Auth', function(Auth) {
+        return Auth.$requireSignIn();
+      }]
+    },
+    views: {
+      'survey': {
+        component: 'survey'
       }
     }
   });

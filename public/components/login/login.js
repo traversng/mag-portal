@@ -4,8 +4,8 @@ import template from './login.html';
 const login = angular.module('login', [])
 .component('login', {
   template,
-  controller: ['Auth', '$state', function(Auth, $state) {
-    console.log('login called');
+  controller: ['Auth', 'Profile', 'DB', '$state', function(Auth, Profile, DB, $state) {
+    console.log('DB: ', DB);
     let lc = this;
     lc.signinEmail = '';
     lc.signinPassword = '';

@@ -1,0 +1,28 @@
+<div class="container">
+  <form class="form-horizontal">
+  <fieldset>
+  <!-- Form Name -->
+  <legend>Mag Client Survey</legend>
+
+  <!-- Text input-->
+  <div ng-repeat="(key, question) in $ctrl.data.questions" class="form-group">
+    <label class="col-md-4 control-label" for="textinput">{{question}}</label>
+    <div class="col-md-4">
+    <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
+    <span class="help-block">help</span>
+    </div>
+  </div>
+
+  <!-- Button (Double) -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="survey-submit"></label>
+    <div class="col-md-8">
+      <button id="survey-submit" name="survey-submit" class="btn btn-success">Submit</button>
+      <button id="survey-cancel" name="survey-cancel" class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+
+</div>
