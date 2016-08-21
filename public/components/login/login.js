@@ -4,7 +4,7 @@ import template from './login.html';
 const login = angular.module('login', [])
 .component('login', {
   template,
-  controller: ['Auth', 'Profile', 'DB', '$state', function(Auth, Profile, DB, $state) {
+  controller: ['Auth', 'Profile', 'DB', '$state', '$compile', '$scope', function(Auth, Profile, DB, $state, $compile, $scope) {
     console.log('DB: ', DB);
     let lc = this;
     lc.signinEmail = '';
@@ -20,7 +20,7 @@ const login = angular.module('login', [])
 		};
     lc.socialSignIn = function(provider) {
 			Auth.$signInWithPopup(provider).then(function() {
-        $state.go('home.account');
+        $state.go('portal.account');
 			}).catch(function(error) {
 				lc.signinError = error;
 			});

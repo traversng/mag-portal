@@ -1,15 +1,17 @@
 <div class="container">
+  <div class="jumbotron">
+    <h1>Stakeholder Survey</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia hic odio dolorem expedita alias adipisci sit possimus quam maiores facilis at odit placeat assumenda voluptatum similique sint voluptate sunt, in?</p>
+  </div>
   <form class="form-horizontal">
   <fieldset>
   <!-- Form Name -->
-  <legend>Mag Client Survey</legend>
-
+  <legend class="text-center">{{$ctrl.survey.title}}</legend>
   <!-- Text input-->
-  <div ng-repeat="(key, question) in $ctrl.data.questions" class="form-group">
+  <div ng-repeat="(key, question) in $ctrl.survey.questions" class="form-group">
     <label class="col-md-4 control-label" for="textinput">{{question}}</label>
     <div class="col-md-4">
-    <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
-    <span class="help-block">help</span>
+    <input id="textinput" name="textinput" type="text" placeholder="{{key}}" class="form-control input-md">
     </div>
   </div>
 
@@ -21,7 +23,6 @@
       <button id="survey-cancel" name="survey-cancel" class="btn btn-danger">Cancel</button>
     </div>
   </div>
-
   </fieldset>
   </form>
 

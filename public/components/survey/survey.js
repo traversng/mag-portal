@@ -6,13 +6,13 @@ const survey = angular.module('survey', [])
   template,
   controller: ['Auth', '$state', function(Auth, $state) {
     let nc = this;
-    nc.data = {
-      title: 'Magnetic Survey',
-      questions: [
-        'What is your company name?',
-        'Who is your ideal celebrity spokes person?',
-        'Who would you vote for president?'
-      ]
+    nc.survey = {
+      title: 'Client Survey',
+      questions: {
+        MyCompany: 'What is your company name?',
+        CharlieSheen: 'Who is your ideal celebrity spokes person?',
+        TheRock: 'Who would you vote for president?'
+      }
     };
   }]
 });

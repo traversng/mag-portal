@@ -1,3 +1,6 @@
+// webpack should be in the node_modules directory, install if not.
+var webpack = require("webpack");
+
 module.exports = {
     entry: './public/app',
     output: {
@@ -5,6 +8,12 @@ module.exports = {
         filename: 'app.bundle.js'
     },
     devtool: 'sourcemap',
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        })
+    ],
     module: {
         preLoaders: [
           {

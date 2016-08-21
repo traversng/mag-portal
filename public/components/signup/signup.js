@@ -22,6 +22,13 @@ const signup = angular.module('signup', [])
       console.log('sc user: ', sc.user);
       $state.go('home.account');
 		});
+    sc.socialSignIn = function(provider) {
+			Auth.$signInWithPopup(provider).then(function() {
+        $state.go('portal.account');
+			}).catch(function(error) {
+				sc.signinError = error;
+			});
+		};
   }]
 });
 
