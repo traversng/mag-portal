@@ -7,11 +7,16 @@ const navbar = angular.module('navbar', [])
   controller: ['Auth', '$state', function(Auth, $state) {
     let nc = this;
     nc.user = Auth.$getAuth();
-    console.log('nc.user ', nc.user);
+    nc.loggedIn = Auth.currentUser;
+    console.log('nc.user: ', nc.user);
     nc.logoutUser = function() {
       Auth.$signOut();
     $state.go('home.login');
   };
+  Auth.$onAuthStateChanged(function(firebaseUser) {
+			nc.user = firebaseUser;
+      console.log('nc user: ', nc.user);
+		});
   }]
 });
 
