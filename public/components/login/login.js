@@ -4,9 +4,27 @@ import template from './login.html';
 const login = angular.module('login', [])
 .component('login', {
   template,
-  controller: ['$scope', function($scope) {
-    console.log('login called');
-    let loginController = this;
+  controller: ['Auth', 'Profile', 'DB', '$state', '$compile', '$scope', function(Auth, Profile, DB, $state, $compile, $scope) {
+    console.log('DB: ', DB);
+    let lc = this;
+    lc.signinEmail = '';
+    lc.signinPassword = '';
+    lc.emailSignIn = function() {
+			Auth.$signInWithEmailAndPassword(lc.signinEmail, lc.signinPassword)
+				.then(function(firebaseUser) {
+					lc.user = firebaseUser;
+					lc.$parent.loggedIn = true;
+				}).catch(function(error) {
+					lc.signinError = error.message;
+				});
+		};
+    lc.socialSignIn = function(provider) {
+			Auth.$signInWithPopup(provider).then(function() {
+        $state.go('portal.account');
+			}).catch(function(error) {
+				lc.signinError = error;
+			});
+		};
   }]
 });
 

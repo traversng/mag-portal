@@ -1,8 +1,14 @@
+import 'jquery';
+import 'bootstrap';
 import angular from 'angular';
+import {factories} from './services/factoryIndex';
+import {portal} from './components/portal/portal';
 import {home} from './components/home/home';
+import {navbar} from './components/navbar/navbar';
 import {login} from './components/login/login';
 import {signup} from './components/signup/signup';
 import {account} from './components/account/account';
+import {survey} from './components/survey/survey';
 import 'angular-ui-router';
 import firebase from 'firebase';
 import angularfire from 'angularfire';
@@ -16,13 +22,18 @@ var firebaseConfig = {
   storageBucket: "magnetic-creative.appspot.com",
 };
 firebase.initializeApp(firebaseConfig);
+
 angular.module('app', [
   'firebase',
   'ui.router',
+  factories.name,
+  portal.name,
   home.name,
+  navbar.name,
   login.name,
   account.name,
-  signup.name
+  signup.name,
+  survey.name
 ])
 
 .run(['$rootScope', '$state', function($rootScope, $state) {
@@ -30,20 +41,33 @@ angular.module('app', [
   //redirect logged out users
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     if (error == 'AUTH_REQUIRED') {
-      return $state.go('home.login');
+      return $state.go('portal.login');
     }
   });
 
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home/login');
+  $urlRouterProvider.otherwise('/portal/login');
   $stateProvider
-  .state('home', {
-    url: '/home',
-    component: 'home'
+  .state('portal', {
+    url: '/portal',
+    component: 'portal'
   })
-  .state('home.login', {
+  .state('portal.home', {
+    url: '/home',
+    resolve: {
+      'currentAuth': ['Auth', function(Auth) {
+        return Auth.$requireSignIn();
+      }]
+    },
+    views: {
+      'home': {
+        component: 'home'
+      }
+    }
+  })
+  .state('portal.login', {
     url: '/login',
     views: {
       'login': {
@@ -51,7 +75,7 @@ angular.module('app', [
       }
     }
   })
-  .state('home.signup', {
+  .state('portal.signup', {
     url: '/signup',
     views: {
       'signup': {
@@ -59,7 +83,7 @@ angular.module('app', [
       }
     }
   })
-  .state('home.account', {
+  .state('portal.account', {
     url: '/account',
     resolve: {
       'currentAuth': ['Auth', function(Auth) {
@@ -71,19 +95,18 @@ angular.module('app', [
         component: 'account'
       }
     }
+  })
+  .state('portal.survey', {
+    url: '/survey',
+    resolve: {
+      'currentAuth': ['Auth', function(Auth) {
+        return Auth.$requireSignIn();
+      }]
+    },
+    views: {
+      'survey': {
+        component: 'survey'
+      }
+    }
   });
-}])
-//factories around firebase modules
-.factory('Auth', ['$firebaseAuth', function($firebaseAuth) {
-  return $firebaseAuth();
-}])
-.factory('Profile', ['$firebaseObject', function($firebaseObject) {
-  return function(uid) {
-    var ref = firebase.database().ref().child('Profiles').child(uid);
-    return $firebaseObject(ref);
-  };
-}])
-.factory('DB', ['$firebaseObject', function($firebaseObject) {
-  var ref = firebase.database().ref();
-  return $firebaseObject(ref);
 }]);
