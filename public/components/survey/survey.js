@@ -4,16 +4,14 @@ import template from './survey.html';
 const survey = angular.module('survey', [])
 .component('survey', {
   template,
-  controller: ['Auth', '$state', function(Auth, $state) {
+  controller: ['Auth', '$state', '$firebaseArray', function(Auth, $state, $firebaseArray) {
     let nc = this;
-    nc.survey = {
-      title: 'Client Survey',
-      questions: {
-        MyCompany: 'What is your company name?',
-        CharlieSheen: 'Who is your ideal celebrity spokes person?',
-        TheRock: 'Who would you vote for president?'
-      }
+    let ref = firebase.database().ref().child('StakeholderSurvey');
+    nc.getSurvey = function() {
+      return $firebaseArray(ref);
     };
+    console.log('survey ref: ', nc.getSurvey());
+    nc.survey = nc.getSurvey();
   }]
 });
 

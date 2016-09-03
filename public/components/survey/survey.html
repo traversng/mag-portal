@@ -8,7 +8,7 @@
   <!-- Form Name -->
   <legend class="text-center">{{$ctrl.survey.title}}</legend>
   <!-- Text input-->
-  <div ng-repeat="(key, question) in $ctrl.survey.questions" class="form-group">
+  <div ng-repeat="(key, question) in $ctrl.survey" class="form-group">
     <label class="col-md-4 control-label" for="textinput">{{question}}</label>
     <div class="col-md-4">
     <input id="textinput" name="textinput" type="text" placeholder="{{key}}" class="form-control input-md">
